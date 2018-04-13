@@ -153,6 +153,7 @@ function myFunction () {
     if (play === true) {
 
         function turnCard(card) {card.addClass('match')}
+        // this is the function that turns our cards on the page by adding 'match' to the class
 
         $('.card').click(function() {
             clickCount += 1
@@ -164,6 +165,9 @@ function myFunction () {
             }
 
             if (clickCount === 1) {
+                // users first click will: turn over a card wtih turnCard
+                // then get the cards li class (what image is on the card), and
+                // get the clicked cards id (for an anti-cheating measure)
                 turnCard($(this))
                 upCard1 = $(this)
                 upCard1Class = upCard1.children().attr('class')
@@ -171,6 +175,9 @@ function myFunction () {
             }
 
             else if (clickCount === 2) {
+                // users second click will: increment the moves number on the page,
+                // turn over the clicked card, get its class and id
+                // and implement some anti-cheating and matching logic
                 guesses +=1
                 $('.moves').html('<span class="moves">'+guesses+'</span>')
                 turnCard($(this))
