@@ -1,15 +1,15 @@
 // Variables //
 //-----------//
-var clickCount = 0
-var guesses = 0
-var deck = []
-var card = null
-deck = $('.card')
-var upCard1 = null
-var upCard2 = null
-var showCards = []
-var starNum = 3
-var displayTimer = $('#timer')
+var clickCount = 0;
+var guesses = 0;
+var deck = [];
+var card = null;
+deck = $('.card');
+var upCard1 = null;
+var upCard2 = null;
+var showCards = [];
+var starNum = 3;
+var displayTimer = $('#timer');
 
 /*
 +----------+
@@ -35,22 +35,22 @@ function shuffle(array) {
 // Restart function
 //-------------------//
 function restart() {
-    $('.card').removeClass('match')
-    $('.card').removeClass('open show')
-    stars = 3
-    guesses = 0
-    clickCount = 0
-    upCard1 = null
-    upCard2 = null
-    upCard1Id = undefined
-    upCard2Id = null
-    $('.moves').html('<span class="moves">'+guesses+'</span>')
+    $('.card').removeClass('match');
+    $('.card').removeClass('open show');
+    stars = 3;
+    guesses = 0;
+    clickCount = 0;
+    upCard1 = null;
+    upCard2 = null;
+    upCard1Id = undefined;
+    upCard2Id = null;
+    $('.moves').html('<span class="moves">'+guesses+'</span>');
     shuffle(deck) // use the shuffle function to re-order the elements in the deck
 
     // loop through each card, and append it to the deck in HTML??
     for (i=0; i<deck.length; i++) {
         card = deck[i];
-        $('.deck').append(card)
+        $('.deck').append(card);
         };
 };
 
@@ -64,9 +64,9 @@ function Stopwatch(element) {
     this.isOn = false;
 
     function update() {
-        time += delta()
+        time += delta();
         var formattedTime = formatTime(time);
-        element.html(formattedTime)
+        element.html(formattedTime);
     };
 
     function delta() {
@@ -89,7 +89,7 @@ function Stopwatch(element) {
             seconds = '0' + seconds;
         }
         while (milliseconds.length < 3) {
-            milliseconds = '0' + milliseconds
+            milliseconds = '0' + milliseconds;
         }
         return minutes + ' : ' + seconds + ' . ' + milliseconds
     }
@@ -119,10 +119,10 @@ function Stopwatch(element) {
 // Reset Button
 //-------------------//
 $('.restart').click(function() {
-            restart()
-            watch.stop()
-            watch.reset()
-            window.location.reload()
+            restart();
+            watch.stop();
+            watch.reset();
+            window.location.reload();
         })
 //-------------------//
 
@@ -139,82 +139,82 @@ you memorize the image on the back of the card, click
 another card that you think has the same image on its
 reverse. If both images are the same, both cards will
 stay face up. If the images are not the same, the cards
-will turn back over. OK to play, Cancel to quit.`
+will turn back over. OK to play, Cancel to quit.`;
 
-restart()
-var watch = new Stopwatch(displayTimer)
-var play
+restart();
+var watch = new Stopwatch(displayTimer);
+var play;
 
 // This function is activated when the user clicks play now
 function myFunction () {
 
     play = window.confirm(instructions);
-    watch.start()
+    watch.start();
     if (play === true) {
 
         function turnCard(card) {card.addClass('match')}
         // this is the function that turns our cards on the page by adding 'match' to the class
 
         $('.card').click(function() {
-            clickCount += 1
+            clickCount += 1;
 
             if (clickCount > 2) {
                 // prevent cheating by 'fast clicking' mulitple cards
-                window.alert('Dont cheat by clicking more than 2 cards a time! Restarting your game...')
-                window.location.reload()
+                window.alert('Dont cheat by clicking more than 2 cards a time! Restarting your game...');
+                window.location.reload();
             }
 
             if (clickCount === 1) {
                 // users first click will: turn over a card wtih turnCard
                 // then get the cards li class (what image is on the card), and
                 // get the clicked cards id (for an anti-cheating measure)
-                turnCard($(this))
-                upCard1 = $(this)
-                upCard1Class = upCard1.children().attr('class')
-                upCard1Id = upCard1.attr('id')
+                turnCard($(this));
+                upCard1 = $(this);
+                upCard1Class = upCard1.children().attr('class');
+                upCard1Id = upCard1.attr('id');
             }
 
             else if (clickCount === 2) {
                 // users second click will: increment the moves number on the page,
                 // turn over the clicked card, get its class and id
                 // and implement some anti-cheating and matching logic
-                guesses +=1
-                $('.moves').html('<span class="moves">'+guesses+'</span>')
-                turnCard($(this))
-                upCard2 = $(this)
-                upCard2Class = upCard2.children().attr('class')
-                upCard2Id = upCard2.attr('id')
+                guesses +=1;
+                $('.moves').html('<span class="moves">'+guesses+'</span>');
+                turnCard($(this));
+                upCard2 = $(this);
+                upCard2Class = upCard2.children().attr('class');
+                upCard2Id = upCard2.attr('id');
 
                 if (upCard2Id === upCard1Id) {
                     // prevent cheating by clicking the same card more than once
                     // uses unique HTML ID's for each card
-                    window.alert('Dont cheat by clicking the same card twice! Restarting your game...Press Play Now to play again')
-                    window.location.reload()
+                    window.alert('Dont cheat by clicking the same card twice! Restarting your game...Press Play Now to play again');
+                    window.location.reload();
                 }
 
                 if (upCard2Class === upCard1Class) {
                     // if the images (classes) on the cards match they have the match class removed
                     // and the open show class added to have them remain permanently visible
-                    upCard1.removeClass('match')
-                    upCard1.addClass('open show')
-                    upCard2.removeClass('match')
-                    upCard2.addClass('open show')
-                    clickCount = 0
-                    shownCards = $('.show')
+                    upCard1.removeClass('match');
+                    upCard1.addClass('open show');
+                    upCard2.removeClass('match');
+                    upCard2.addClass('open show');
+                    clickCount = 0;
+                    shownCards = $('.show');
 
                     if (shownCards.length === 16) {
                         // this is our stopping condition
-                        watch.stop()
+                        watch.stop();
                         setTimeout( function() {
-                        play = false
-                        replay = window.confirm('Congratulations! You won in '+guesses+' moves for a '+starNum+' star rating. You finished in '+$('#timer').text()+'. Press "OK" to play again, "Cancel" to quit.')
-                        watch.reset()
+                        play = false;
+                        replay = window.confirm('Congratulations! You won in '+guesses+' moves for a '+starNum+' star rating. You finished in '+$('#timer').text()+'. Press "OK" to play again, "Cancel" to quit.');
+                        watch.reset();
                         if (replay === true) {
-                            window.location.reload()
+                            window.location.reload();
                         }
                         else {
-                            window.alert('Thanks for playing')
-                            window.location.reload()
+                            window.alert('Thanks for playing');
+                            window.location.reload();
                         }
                         },200)
                     }
@@ -226,9 +226,9 @@ function myFunction () {
                     // allows us to specify how long (in ms) to display the images before
                     // turning the cards back over.
                     setTimeout( function() {
-                        upCard1.removeClass('match')
-                        upCard2.removeClass('match')
-                        clickCount = 0
+                        upCard1.removeClass('match');
+                        upCard2.removeClass('match');
+                        clickCount = 0;
                     }, 700)
                 }
             }
@@ -237,24 +237,24 @@ function myFunction () {
             var stars = $('.stars').find('li')
             if (guesses === 14) {
                 if (clickCount === 1) {
-                    starNum--
-                    stars[0].remove()
-                    stars = $('.stars').find('li')
+                    starNum--;
+                    stars[0].remove();
+                    stars = $('.stars').find('li');
                 }
 
             }
             else if (guesses === 18) {
                 if (clickCount === 1) {
-                    starNum--
-                    stars[0].remove()
-                    stars = $('.stars').find('li')
+                    starNum--;
+                    stars[0].remove();
+                    stars = $('.stars').find('li');
                 }
 
             }
             else if (guesses === 22) {
                 if (clickCount === 1) {
-                    starNum--
-                    stars[0].remove()
+                    starNum--;
+                    stars[0].remove();
                 }
             }
         })
@@ -262,8 +262,8 @@ function myFunction () {
     } // close bracket for the if play === true condition
 
     else {
-        watch.stop()
-        watch.reset()
+        watch.stop();
+        watch.reset();
         window.alert('Thank you, Goodbye!')}
 }
 
