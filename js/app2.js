@@ -7,9 +7,15 @@ var card = null;
 deck = $('.card');
 var upCard1 = null;
 var upCard2 = null;
-var showCards = [];
+var upCard1Id = null;
+var upCard2Id = null;
+var upCard1Class = null;
+var upCard2Class = null;
+var shownCards = [];
 var starNum = 3;
+var stars = 3;
 var displayTimer = $('#timer');
+
 
 /*
 +----------+
@@ -29,7 +35,7 @@ function shuffle(array) {
         array[randomIndex] = temporaryValue;
     }
     return array;
-};
+}
 
 //-------------------//
 // Restart function
@@ -45,14 +51,14 @@ function restart() {
     upCard1Id = undefined;
     upCard2Id = null;
     $('.moves').html('<span class="moves">'+guesses+'</span>');
-    shuffle(deck) // use the shuffle function to re-order the elements in the deck
+    shuffle(deck); // use the shuffle function to re-order the elements in the deck
 
     // loop through each card, and append it to the deck in HTML??
-    for (i=0; i<deck.length; i++) {
+    for (var i=0; i<deck.length; i++) {
         card = deck[i];
         $('.deck').append(card);
-        };
-};
+        }
+}
 
 //-------------------//
 // Stopwatch function...some code/ideas from this youtube video: https://www.youtube.com/watch?v=jRhB1IG7uAw
@@ -67,14 +73,14 @@ function Stopwatch(element) {
         time += delta();
         var formattedTime = formatTime(time);
         element.html(formattedTime);
-    };
+    }
 
     function delta() {
         var now = Date.now();
         var timePassed = now - offset;
         offset = now;
         return timePassed;
-    };
+    }
 
     function formatTime(timeInMs) {
         var time = new Date(timeInMs);
@@ -91,7 +97,7 @@ function Stopwatch(element) {
         while (milliseconds.length < 3) {
             milliseconds = '0' + milliseconds;
         }
-        return minutes + ' : ' + seconds + ' . ' + milliseconds
+        return minutes + ' : ' + seconds + ' . ' + milliseconds;
     }
 
     this.start = function() {
@@ -114,7 +120,7 @@ function Stopwatch(element) {
     this.reset = function() {
         time = 0;
     };
-};
+}
 
 //-------------------//
 // Reset Button
@@ -124,8 +130,11 @@ $('.restart').click(function() {
             watch.stop();
             watch.reset();
             window.location.reload();
-        })
+        });
 //-------------------//
+
+function turnCard(card) {card.addClass('match');}
+// this is the function that turns our cards on the page by adding 'match' to the class
 
 
 //==============//
@@ -151,10 +160,9 @@ function myFunction () {
 
     play = window.confirm(instructions);
     if (play === true) {
-        watch.start()
+        watch.start();
 
-        function turnCard(card) {card.addClass('match')}
-        // this is the function that turns our cards on the page by adding 'match' to the class
+
 
         $('.card').click(function() {
             clickCount += 1;
@@ -208,7 +216,7 @@ function myFunction () {
                         watch.stop();
                         setTimeout( function() {
                         play = false;
-                        replay = window.confirm('Congratulations! You won in '+guesses+' moves for a '+starNum+' star rating. You finished in '+$('#timer').text()+'. Press "OK" to play again, "Cancel" to quit.');
+                        var replay = window.confirm('Congratulations! You won in '+guesses+' moves for a '+starNum+' star rating. You finished in '+$('#timer').text()+'. Press "OK" to play again, "Cancel" to quit.');
                         watch.reset();
                         if (replay === true) {
                             window.location.reload();
@@ -217,7 +225,7 @@ function myFunction () {
                             window.alert('Thanks for playing');
                             window.location.reload();
                         }
-                        },200)
+                        },200);
                     }
                 }
 
@@ -230,12 +238,12 @@ function myFunction () {
                         upCard1.removeClass('match');
                         upCard2.removeClass('match');
                         clickCount = 0;
-                    }, 700)
+                    }, 700);
                 }
             }
 
             // Star handling (keeps track of star number AND updates star imagery on the page)
-            var stars = $('.stars').find('li')
+            var stars = $('.stars').find('li');
             if (guesses === 14) {
                 if (clickCount === 1) {
                     starNum--;
@@ -258,14 +266,14 @@ function myFunction () {
                     stars[0].remove();
                 }
             }
-        })
+        });
 //-------------------------------------------------------
     } // close bracket for the if play === true condition
 
     else {
         watch.stop();
         watch.reset();
-        window.alert('Thank you, Goodbye!')}
+        window.alert('Thank you, Goodbye!');}
 }
 
 /*
