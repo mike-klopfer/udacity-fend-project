@@ -95,6 +95,7 @@ function Stopwatch(element) {
     }
 
     this.start = function() {
+        time = 0;
         if (!this.isOn) {
             interval = setInterval(update, 10);
             offset = Date.now();
@@ -149,8 +150,8 @@ var play;
 function myFunction () {
 
     play = window.confirm(instructions);
-    watch.start();
     if (play === true) {
+        watch.start()
 
         function turnCard(card) {card.addClass('match')}
         // this is the function that turns our cards on the page by adding 'match' to the class
