@@ -83,10 +83,11 @@ function Stopwatch(element) {
     }
 
     function formatTime(timeInMs) {
-        var time = new Date(timeInMs);
-        var minutes = time.getMinutes().toString();
-        var seconds = time.getSeconds().toString();
-        var milliseconds = time.getMilliseconds().toString();
+
+        var outTime = new Date(timeInMs);
+        var minutes = outTime.getMinutes().toString();
+        var seconds = outTime.getSeconds().toString();
+        var milliseconds = outTime.getMilliseconds().toString();
 
         if (minutes.length < 2) {
             minutes = '0' + minutes;
